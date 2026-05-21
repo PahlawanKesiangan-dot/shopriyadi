@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameVault ID - Customer Portal</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;700&display=swap');
+        
+        body { font-family: 'Inter', sans-serif; }
+        .font-luxury { font-family: 'Orbitron', sans-serif; }
+
+        .gold-gradient {
+            background: linear-gradient(135deg, #FFD700 0%, #B8860B 100%);
+        }
+        .gold-text {
+            color: #FFD700;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+        }
+        .gold-border {
+            border-color: #D4AF37;
+        }
+        .bg-dark-vault {
+            background-color: #050505;
+        }
+        
+        .glow-effect {
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-dark-vault text-gray-200 min-h-screen flex items-center justify-center p-6">
+
+    <!-- MAIN CONTAINER -->
+    <div class="w-full max-w-lg animate-fade-in">
+        
+        <!-- HEADER LOGO -->
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-black gold-text font-luxury tracking-tighter mb-2">GAMEVAULT ID</h1>
+            <p class="text-yellow-700 text-xs uppercase tracking-[0.4em] font-bold">Tempat Game Steam terbaik</p>
+        </div>
+
+        <!-- REDEEM CARD -->
+        <div class="bg-black border-2 gold-border p-8 md:p-10 rounded-3xl glow-effect relative overflow-hidden">
+            <!-- Decorative Element -->
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-yellow-500/10 rounded-full blur-3xl"></div>
+            
+            <div class="relative z-10">
+                <h2 class="text-xl font-luxury font-bold text-white mb-6 text-center tracking-wide">REDEEM VOUCHER</h2>
+                
+                <!-- Form Penukaran Kode -->
+                <div class="space-y-6">
+                    <!-- Pilih Game -->
+                    <div>
+                        <label class="block text-xs uppercase tracking-[0.2em] text-yellow-600 font-bold mb-3 ml-1">Pilih Game</label>
+                        <select id="game-select" 
+                            class="w-full bg-gray-900 border gold-border rounded-xl p-4 text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all appearance-none cursor-pointer">
+                            <option value="" disabled selected>-- Pilih Game Anda --</option>
+                            <option value="GTA 5 Legacy">GTA 5 Legacy</option>
+                            <option value="GTA 5 Enhanced">GTA 5 Enhanced</option>
+                            <option value="RDR1">Red Dead Redemption 1</option>
+                            <option value="RDR2">Red Dead Redemption 2</option>
+                            <option value="FC 26 Inject">FC 26 Inject</option>
+                            <option value="FC 25 Inject">FC 25 Inject</option>
+                            <option value="Minecraft">Minecraft</option>
+                            <option value="Ready Or Not">Ready Or Not</option>
+                            <option value="The Walking Dead">The Walking Dead</option>
+                            <option value="Pragmata">Pragmata</option>
+                            <option value="Resident Evil Requiem">Resident Evil Requiem</option>
+                            <option value="Devil May Cry 5">Devil May Cry 5</option>
+                            <option value="Resident Evil 4 Remake">Resident Evil 4 Remake</option>
+                            <option value="Call Of Duty: Infinite Warfare">Call Of Duty: Infinite Warfare</option>
+                            <option value="Assassin Creed Valhalla">Assassin Creed Valhalla</option>
+                            <option value="Assassin Creed II">Assassin Creed II</option>
+                            <option value="Assassin Creed Brotherhood">Assassin Creed Brotherhood</option>
+                            <option value="Watch Dogs">Watch Dogs</option>
+                            <option value="Watch Dogs 2">Watch Dogs 2</option>
+                            <option value="F1 25">F1 25</option>
+                            <option value="Need For Speed Most Wanted">Need For Speed Most Wanted</option>
+                            <option value="Need For Speed: Rivals">Need For Speed: Rivals</option>
+                            <option value="Need For Speed: Heat">Need For Speed: Heat</option>
+                            <option value="Dead Space">Dead Space</option>
+                            <option value="The Sims 4">The Sims 4</option>
+                            <option value="Black Myth: Wukong">Black Myth: Wukong</option>
+                        </select>
+                    </div>
+
+                    <!-- Input Kode -->
+                    <div>
+                        <label class="block text-xs uppercase tracking-[0.2em] text-yellow-600 font-bold mb-3 ml-1">Masukkan Kode Voucher</label>
+                        <input type="text" id="voucher-code" 
+                            maxlength="20"
+                            class="w-full bg-gray-900 border gold-border rounded-xl p-4 text-white focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all font-mono placeholder:text-gray-700"
+                            placeholder="XXXX-XXXX-XXXX-XXXX-XXXX"
+                            autocomplete="off">
+                    </div>
+
+                    <!-- Tombol Redeem -->
+                    <button id="btn-redeem" 
+                        class="w-full gold-gradient text-black font-black py-4 rounded-xl hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl font-luxury text-lg mt-4 flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        REDEEM NOW
+                    </button>
+
+                    <!-- Notifikasi Status -->
+                    <div id="redeem-status" class="hidden text-center p-4 rounded-xl border font-bold text-sm transition-all">
+                        <!-- Pesan error/sukses akan muncul di sini -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER INFO -->
+        <div class="mt-8 text-center">
+            <p class="text-gray-600 text-[10px] uppercase tracking-widest font-bold">
+                100% Amanah • 100% Legal • Fast Response
+            </p>
+        </div>
+
+    </div>
+
+    <!-- LOGIKA FIREBASE & JAVASCRIPT -->
+<script type="module">
+    import { database, ref, get, update } from "./assets/js/firebase-config.js";
+
+    // 1. DAFTAR LINK MEDIAFIRE
+    const DOWNLOAD_LINKS = {
+        "GTA 5 Legacy": "https://mega.nz/file/9s5i1YpK#8n2l7Xo3mNqj0eXh6Zt9v8uJ4a5b2c1d0eF7gH9kLm",
+        "GTA 5 Enhanced": "https://mega.nz/file/lygDCA6S#ORPMp0N2esWi3ZW74oRbmU4YpZCLmZqiT-H_Y8rIplE",
+        "RDR1": "https://mega.nz/file/d2QBwD6K#rIR8qM-4-OzenGoYrLAqx1yRV3TFyDKJnANDQQHC2i4",
+        "RDR2": "https://mega.nz/file/xqYFASDS#awxtTnSUn2P1cdbeY6wbY3KL_cNLigZvP_SSXYwsPJ4",
+        "FC 26 Inject": "https://www.mediafire.com/file/x77eqbtad6bn789/FC+26.zip/file",
+        "FC 25 Inject": "https://www.mediafire.com/file/dl1viua9rh42rbo/FC+25.zip/file",
+        "Minecraft": "https://www.mediafire.com/file/deggzsm7gx37812/OnlineFix.zip/file",
+        "Ready Or Not": "https://www.mediafire.com/file/oc56ddgyuwmmuoh/Ready+Or+Not.zip/file",
+        "The Walking Dead": "https://www.mediafire.com/file/d5mgwk7df15pzmm/The+Walking+Dead.zip/file",
+        "Pragmata": "https://www.mediafire.com/file/4wsqbcamyinu93m/Pragmata.zip/file",
+        "Resident Evil Requiem": "https://www.mediafire.com/file/xc43hngf32vow0c/RE+Requiem.zip/file",
+        "Devil May Cry 5": "https://www.mediafire.com/file/09uzopebk5q2e2i/DMC+5.zip/file",
+        "Resident Evil 4 Remake": "https://www.mediafire.com/file/c9g9k9ubskst3q1/RE+4+Remake.zip/file",
+        "Call Of Duty: Infinite Warfare": "https://www.mediafire.com/file/dmkz85v6sdc082o/COD+Infinite+Warfare.zip/file",
+        "Assassin Creed Valhalla": "https://www.mediafire.com/file/tei83aqz05crcqp/AC+Valhalla.zip/file",
+        "Assassin Creed II": "https://www.mediafire.com/file/jb1szqd76bt3av0/AC+2.zip/file",
+        "Assassin Creed Brotherhood": "https://www.mediafire.com/file/z3qcnti8d38ahnh/AC+Brotherhood.zip/file",
+        "Watch Dogs": "https://www.mediafire.com/file/wb0lb35iu00lak7/Watch+Dogs.zip/file",
+        "F1 25": "https://mega.nz/file/o7I2VK6B#aiVPFtdU9zzfM7SZwoXmWcd9Xyor0uHcKfa6IBFi_co",
+        "Need For Speed Most Wanted": "https://mega.nz/file/UvREWA4T#wZotiTpB8dIHCE-fMyN29uWM3D9ZYkMMYUsJ4KlKLBw",
+        "Need For Speed: Rivals": "https://mega.nz/file/VixkzbbT#Clk1honh7vqKR0lN0Vpli6UX8CQXlsWA0qwd7Ae24ps",
+        "Need For Speed: Heat": "https://mega.nz/file/VyYV2Swa#YkchW374W-_WFAukacoowu2gAWyYDnB0Kj-koThrH9E",
+        "Dead Space": "https://mega.nz/file/tvAyjbrC#-dhI1o7NBp2tqvjg-ZRIJJ5AmaFC6wqY9l3FbEKSFbo",
+        "The Sims 4": "https://mega.nz/file/EypWHKTb#1qTem-ftFMBOse8FbjRjsZ0Auz88SoJ4ELe0yyq-oRM",
+        "Black Myth: Wukong": "https://mega.nz/file/FrBk2A4K#ZfODdrGS8FASkc7_RdgF7y-yNk5fT6-bVcnxNwXnB_M",
+    };
+
+    // 2. INFORMASI TAMBAHAN (Pesan yang dibaca user sebelum download)
+    const GAME_INFO = {
+        "GTA 5 Legacy": "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, Pastikan file .Manifest di folder inject.zip dipaste ke folder Steam > Depotcache, dan Steam > config > depotcache, File .Lua yang ada di inject.zip, dipaste di Steam > config > st-plugin, Restart steam dan install Game dahulu, lalu pasang file yang ada di folder Bypass.zip langsung ke directory game, baru nyalakan Real-Time Protection, jika ada kendala, hubungi admin Shopee / Tokopedia",
+        "GTA 5 Enhanced": "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, Pastikan file .Manifest di folder inject.zip dipaste ke folder Steam > Depotcache, dan Steam > config > depotcache, File .Lua yang ada di inject.zip, dipaste di Steam > config > st-plugin, Restart steam dan install Game dahulu, lalu pasang file yang ada di folder Bypass.zip langsung ke directory game, Tambahkan folder Grand Theft Auto V Enhanced ke Exclusion di windows defender, Jalankan game melalui GTA 5_Enhanced.exe, baru nyalakan Real-Time Protection, jika ada kendala, hubungi admin Shopee / Tokopedia",
+        "FC 26 Inject": "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, File .Lua yang ada di inject.zip, dipaste di Steam > config > st-plugin, Restart steam dan install game dahulu, lalu pasang file yang ada di folder Bypass.zip langsung ke directory game FC 26, Jalankan Game melalui FC26.exe untuk mendapat denuvo ticket, setelah mendapat denuvo ticket, kirim ticketnya ke server discord GameVault ID, Setelah selesai memasang File inject & bypass, baru nyalakan Real-Time Protection, hubungi admin Shopee / Tokopedia Jika ada kendala.",
+        "FC 25 Inject": "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, File .Lua yang ada di inject.zip, dipaste di Steam > config > st-plugin, Restart steam dan install game dahulu, lalu pasang file yang ada di folder Bypass.zip langsung ke directory game FC 25, Jalankan Game melalui FC25.exe untuk mendapat denuvo ticket, setelah mendapat denuvo ticket, kirim ticketnya ke server discord GameVault ID, Setelah selesai memasang File inject & bypass, baru nyalakan Real-Time Protection, hubungi admin Shopee / Tokopedia Jika ada kendala.",
+        "Minecraft": "PENTING: Install Minecraft For Windows di Microsoft Store, Matikan Real-time Protection Antivirus agar OnlineFix tidak terhapus otomatis saat diekstrak, Run Game sekali agar file game nya terbaca, Pastikan file yang ada didalam Folder OnlineFix sudah dipasang di Directory Minecraft(Xbox Games > Minecraft For Windows > Content ), Setelah selesai memasang File File inject, baru nyalakan Real-Time Protection, hubungi admin Shopee / Tokopedia jika ada kendala.",
+        "Ready Or Not": "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, Pastikan file .Manifest di folder inject.zip dipaste ke folder Steam > Depotcache, dan Steam > config > depotcache, File .Lua yang ada di inject.zip, dipaste di Steam > config > st-plugin, Restart steam dan install Game dahulu, lalu file yang ada di folder OnlineFix di paste ke directory Ready Or Not, Setelah selesai memasang File File inject, baru nyalakan Real-Time Protection, jika ada kendala, hubungi admin Shopee / Tokopedia.",
+        "The Walking Dead": "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, Pastikan file .Manifest di folder inject.zip dipaste ke folder Steam > Depotcache, dan Steam > config > depotcache, File .Lua yang ada di inject.zip, dipaste di Steam > config > st-plugin, Setelah selesai memasang File File inject, Restart Steam, baru nyalakan Real-Time Protection, jika ada kendala, hubungi admin Shopee / Tokopedia",
+        "Pragmata": "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, Pastikan file .Manifest di folder inject.zip dipaste ke folder Steam > Depotcache, dan Steam > config > depotcache, File .Lua yang ada di inject.zip, dipaste di Steam > config > st-plugin, Restart steam dan install Game dahulu, lalu pasang file yang ada di folder Bypass.zip langsung ke directory game, baru nyalakan Real-Time Protection, jika ada kendala, hubungi admin Shopee / Tokopedia",
+        "Resident Evil Requiem": "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, Pastikan file .Manifest di folder inject.zip dipaste ke folder Steam > Depotcache, dan Steam > config > depotcache, File .Lua yang ada di inject.zip, dipaste di Steam > config > st-plugin, Restart steam dan install Game dahulu, lalu pasang file yang ada di folder Bypass.zip langsung ke directory game, baru nyalakan Real-Time Protection, jika ada kendala, hubungi admin Shopee / Tokopedia",
+        "The Walking Dead": "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, Pastikan file .Manifest di folder inject.zip dipaste ke folder Steam > Depotcache, dan Steam > config > depotcache, File .Lua yang ada di inject.zip, dipaste di Steam > config > st-plugin, Setelah selesai memasang File File inject, Restart Steam, baru nyalakan Real-Time Protection, jika ada kendala, hubungi admin Shopee / Tokopedia",
+        "Devil May Cry 5": "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, Pastikan file .Manifest di folder inject.zip dipaste ke folder Steam > Depotcache, dan Steam > config > depotcache, File .Lua yang ada di inject.zip, dipaste di Steam > config > st-plugin, Restart steam dan install Game dahulu, lalu pasang file yang ada di folder Bypass.zip langsung ke directory game, baru nyalakan Real-Time Protection, jika ada kendala, hubungi admin Shopee / Tokopedia",
+        "Resident Evil 4 Remake": "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, Pastikan file .Manifest di folder inject.zip dipaste ke folder Steam > Depotcache, dan Steam > config > depotcache, File .Lua yang ada di inject.zip, dipaste di Steam > config > st-plugin, Restart steam dan install Game dahulu, lalu pasang file yang ada di folder Bypass.zip langsung ke directory game, baru nyalakan Real-Time Protection, jika ada kendala, hubungi admin Shopee / Tokopedia",
+        "Call Of Duty: Infinite Warfare": "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, Pastikan file .Manifest di folder inject.zip dipaste ke folder Steam > Depotcache, dan Steam > config > depotcache, File .Lua yang ada di inject.zip, dipaste di Steam > config > st-plugin, Restart steam dan install Game dahulu, lalu pasang file yang ada di folder Bypass.zip langsung ke directory game, baru nyalakan Real-Time Protection, run game melalui Directory: Call Of Duty Infinite Warfare (iw7-mod.exe) jika ada kendala, hubungi admin Shopee / Tokopedia",
+        "Assassin Creed Valhalla": "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, Pastikan file .Manifest di folder inject.zip dipaste ke folder Steam > Depotcache, dan Steam > config > depotcache, File .Lua yang ada di inject.zip, dipaste di Steam > config > st-plugin, Restart steam dan install Game dahulu, lalu pasang file yang ada di folder Bypass.zip langsung ke directory game, baru nyalakan Real-Time Protection, jika ada kendala, hubungi admin Shopee / Tokopedia",
+        "Assassin Creed II": "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, Pastikan file .Manifest di folder inject.zip dipaste ke folder Steam > Depotcache, dan Steam > config > depotcache, File .Lua yang ada di inject.zip, dipaste di Steam > config > st-plugin, Restart steam dan install Game dahulu, lalu pasang file yang ada di folder Bypass.zip langsung ke directory game, baru nyalakan Real-Time Protection, jika ada kendala, hubungi admin Shopee / Tokopedia",
+        "Assassin Creed Brotherhood": "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, Pastikan file .Manifest di folder inject.zip dipaste ke folder Steam > Depotcache, dan Steam > config > depotcache, File .Lua yang ada di inject.zip, dipaste di Steam > config > st-plugin, Restart steam dan install Game dahulu, lalu pasang file yang ada di folder Bypass.zip langsung ke directory game, baru nyalakan Real-Time Protection, jika ada kendala, hubungi admin Shopee / Tokopedia",
+        "Watch Dogs": "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, Pastikan file .Manifest di folder inject.zip dipaste ke folder Steam > Depotcache, dan Steam > config > depotcache, File .Lua yang ada di inject.zip, dipaste di Steam > config > st-plugin, Restart steam dan install Game dahulu, lalu pasang file yang ada di folder Bypass.zip langsung ke directory game, baru nyalakan Real-Time Protection, jika ada kendala, hubungi admin Shopee / Tokopedia",
+        "Watch Dogs 2": "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, Pastikan file .Manifest di folder inject.zip dipaste ke folder Steam > Depotcache, dan Steam > config > depotcache, File .Lua yang ada di inject.zip, dipaste di Steam > config > st-plugin, Restart steam dan install Game dahulu, lalu pasang file yang ada di folder Bypass.zip langsung ke directory game, baru nyalakan Real-Time Protection, jika ada kendala, hubungi admin Shopee / Tokopedia",
+        "F1 25": "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, Step by Step akan dipandu melalui admin Shopee / Tokopedia / Discord karena step yang terlalu panjang.",
+        "Need For Speed Most Wanted": "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, Pastikan file .Manifest di folder inject.zip dipaste ke folder Steam > Depotcache, dan Steam > config > depotcache, File .Lua yang ada di inject.zip, dipaste di Steam > config > st-plugin, Restart steam dan install Game dahulu, lalu pasang file yang ada di folder Bypass.zip langsung ke directory game, baru nyalakan Real-Time Protection, Jalankan game pada Directory game (NFS13.exe) jika ada kendala, hubungi admin Shopee / Tokopedia",
+        "Need For Speed: Rivals": "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, Pastikan file .Manifest di folder inject.zip dipaste ke folder Steam > Depotcache, dan Steam > config > depotcache, File .Lua yang ada di inject.zip, dipaste di Steam > config > st-plugin, Restart steam dan install Game dahulu, lalu pasang file yang ada di folder Bypass.zip langsung ke directory game, baru nyalakan Real-Time Protection, Jalankan game pada Directory game (NFS14.exe 32 bit / NFS14_x86.exe 64 bit) jika ada kendala, hubungi admin Shopee / Tokopedia",
+        "Need For Speed: Heat": "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, Pastikan file .Manifest di folder inject.zip dipaste ke folder Steam > Depotcache, dan Steam > config > depotcache, File .Lua yang ada di inject.zip, dipaste di Steam > config > st-plugin, Restart steam dan install Game dahulu, lalu pasang file yang ada di folder Bypass.zip langsung ke directory game, baru nyalakan Real-Time Protection, Jalankan game pada Directory game (NeedForSpeedHeat.exe) jika ada kendala, hubungi admin Shopee / Tokopedia",
+        "Dead Space": "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, Pastikan file .Manifest di folder inject.zip dipaste ke folder Steam > Depotcache, dan Steam > config > depotcache, File .Lua yang ada di inject.zip, dipaste di Steam > config > st-plugin, Restart steam dan install Game dahulu, lalu pasang file yang ada di folder Bypass.zip langsung ke directory game, baru nyalakan Real-Time Protection, jika ada kendala, hubungi admin Shopee / Tokopedia",
+        "The Sims 4": "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, Pastikan file .Manifest di folder inject.zip dipaste ke folder Steam > Depotcache, dan Steam > config > depotcache, File .Lua yang ada di inject.zip, dipaste di Steam > config > st-plugin, Restart steam dan install Game dahulu, lalu pasang file yang ada di folder Bypass.zip langsung ke directory game, Jalankan game melalui TS4_x64.exe, baru nyalakan Real-Time Protection, jika ada kendala, hubungi admin Shopee / Tokopedia",
+        "RDR1": "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, Pastikan file .Manifest di folder inject.zip dipaste ke folder Steam > Depotcache, dan Steam > config > depotcache, File .Lua yang ada di inject.zip, dipaste di Steam > config > st-plugin, Restart steam dan install Game dahulu, lalu pasang file yang ada di folder Bypass.zip langsung ke directory game, Jalankan game melalui RDR.exe, baru nyalakan Real-Time Protection, jika ada kendala, hubungi admin Shopee / Tokopedia",
+        "RDR2": "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, Pastikan file .Manifest di folder inject.zip dipaste ke folder Steam > Depotcache, dan Steam > config > depotcache, File .Lua yang ada di inject.zip, dipaste di Steam > config > st-plugin, Restart steam dan install Game dahulu, lalu pasang file yang ada di folder Bypass.zip langsung ke directory game, Jalankan game melalui Launcher.exe, baru nyalakan Real-Time Protection, jika ada kendala, hubungi admin Shopee / Tokopedia",
+        "Black Myth: Wukong": "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, Pastikan file .Manifest di folder inject.zip dipaste ke folder Steam > Depotcache, dan Steam > config > depotcache, File .Lua yang ada di inject.zip, dipaste di Steam > config > st-plugin, Restart steam dan install Game dahulu, lalu pasang file yang ada di folder Bypass.zip langsung ke directory game, baru nyalakan Real-Time Protection, jika ada kendala, hubungi admin Shopee / Tokopedia",
+    };
+
+    const gameSelect = document.getElementById('game-select');
+    const voucherInput = document.getElementById('voucher-code');
+    const btnRedeem = document.getElementById('btn-redeem');
+    const statusBox = document.getElementById('redeem-status');
+
+    // Fungsi menampilkan status dengan gaya box yang elegan
+    const showStatus = (message, type) => {
+        statusBox.classList.remove('hidden', 'bg-red-950/50', 'text-red-500', 'border-red-900', 'bg-green-950/50', 'text-green-500', 'border-green-900', 'bg-yellow-950/50', 'text-yellow-500', 'border-yellow-900');
+        
+        if (type === 'error') {
+            statusBox.classList.add('bg-red-950/50', 'text-red-500', 'border-red-900');
+        } else if (type === 'success') {
+            statusBox.classList.add('bg-green-950/50', 'text-green-500', 'border-green-900');
+        } else {
+            statusBox.classList.add('bg-yellow-950/50', 'text-yellow-500', 'border-yellow-900');
+        }
+        
+        statusBox.innerHTML = message;
+        statusBox.classList.remove('hidden');
+    };
+
+    const validateInput = () => {
+        const selectedGame = gameSelect.value;
+        const enteredCode = voucherInput.value.trim().toUpperCase();
+
+        if (!selectedGame) {
+            showStatus("Mohon pilih kategori game!", "error");
+            return false;
+        }
+        if (!enteredCode || enteredCode.length !== 20) {
+            showStatus("Masukkan 20 digit kode voucher yang valid!", "error");
+            return false;
+        }
+        return { selectedGame, enteredCode };
+    };
+    // --- LANJUTAN LOGIKA FIREBASE & TOMBOL KONFIRMASI ---
+    btnRedeem.addEventListener('click', async () => {
+        const inputData = validateInput();
+        
+        if (inputData) {
+            const { selectedGame, enteredCode } = inputData;
+            
+            btnRedeem.disabled = true;
+            btnRedeem.innerText = "VERIFYING...";
+            showStatus("Memverifikasi kode...", "info");
+
+            try {
+                const codeRef = ref(database, 'active_codes/' + enteredCode);
+                const snapshot = await get(codeRef);
+
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+
+                    // 1. Cek kecocokan game
+                    if (data.game !== selectedGame) {
+                        showStatus(`Maaf, kode ini bukan untuk ${selectedGame}.`, "error");
+                        btnRedeem.disabled = false;
+                        btnRedeem.innerHTML = `REDEEM NOW`;
+                        return;
+                    }
+
+                    // 2. Cek status kode
+                    if (data.status !== 'active') {
+                        showStatus("Gagal! Kode ini sudah pernah digunakan atau kadaluwarsa.", "error");
+                        btnRedeem.disabled = false;
+                        btnRedeem.innerHTML = `REDEEM NOW`;
+                        return;
+                    }
+
+                    // 3. Update status di Firebase
+                    await update(codeRef, {
+                        status: 'used',
+                        redeemedAt: Date.now()
+                    });
+
+                    // 4. Ambil data link dan informasi
+                    const downloadUrl = DOWNLOAD_LINKS[selectedGame];
+                    const infoTambahan = GAME_INFO[selectedGame];
+                    
+                    // 5. Tampilkan Informasi Lengkap & Tombol Konfirmasi Manual
+                    showStatus(`
+                        <div class="text-left space-y-4">
+                            <p class="font-black text-green-500 uppercase tracking-widest text-center">✓ REDEEM BERHASIL</p>
+                            <div class="bg-black/40 p-4 rounded-lg border border-green-900/30 text-xs leading-relaxed">
+                                ${infoTambahan}
+                            </div>
+                            <button id="btn-confirm-download" 
+                                class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-3 rounded-lg transition-all shadow-lg uppercase tracking-tighter text-xs">
+                                SAYA MENGERTI, LANJUT KE MEDIAFIRE / MEGA.NZ
+                            </button>
+                        </div>
+                    `, "success");
+
+                    // Sembunyikan tombol redeem asli agar tidak membingungkan
+                    btnRedeem.classList.add('hidden');
+
+                    // 6. Tambahkan event listener ke tombol konfirmasi yang baru dibuat
+                    document.getElementById('btn-confirm-download').addEventListener('click', () => {
+                        window.location.href = downloadUrl;
+                    });
+                    
+                } else {
+                    showStatus("Kode tidak ditemukan! Periksa kembali pengetikan Anda.", "error");
+                    btnRedeem.disabled = false;
+                    btnRedeem.innerHTML = `REDEEM NOW`;
+                }
+
+            } catch (error) {
+                console.error("Error:", error);
+                showStatus("Gagal terhubung ke database.", "error");
+                btnRedeem.disabled = false;
+                btnRedeem.innerHTML = `REDEEM NOW`;
+            }
+        }
+    });
+</script>
+</body>
+</html>
