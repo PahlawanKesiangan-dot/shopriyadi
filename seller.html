@@ -83,6 +83,13 @@
                         </svg>
                         Cleanup Database
                     </button>
+                    <!-- Tombol Add Game -->
+                    <a href="addgame.html" class="bg-green-950/20 text-green-500 border border-green-700/50 px-5 py-2 rounded-full hover:bg-green-600 hover:text-black transition-all text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                        Add New Game
+                    </a>
                     <!-- Tombol Logout -->
                     <button id="btn-logout" class="bg-red-950/20 text-red-500 border border-red-900 px-5 py-2 rounded-full hover:bg-red-600 hover:text-white transition-all text-xs font-bold uppercase tracking-widest">
                         Logout
@@ -92,88 +99,10 @@
 
             <!-- Area Pemilihan Game -->
             <div class="space-y-12">
-                <div class="text-center">
-                    <h3 class="text-yellow-600 uppercase tracking-[0.3em] text-xs font-black mb-8">Select Game to Generate Code</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                        <button onclick="selectGame('GTA 5 Legacy')" class="group relative bg-zinc-900 border border-yellow-900/30 p-8 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-500">
-                            <span class="block text-lg font-black gold-text group-hover:scale-110 transition-transform font-luxury">GTA 5 Legacy</span>
-                        </button>
-                        <button onclick="selectGame('GTA 5 Enhanced')" class="group relative bg-zinc-900 border border-yellow-900/30 p-8 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-500">
-                            <span class="block text-lg font-black gold-text group-hover:scale-110 transition-transform font-luxury">GTA 5 Enhanced</span>
-                        </button>
-                        <button onclick="selectGame('RDR1')" class="group relative bg-zinc-900 border border-yellow-900/30 p-8 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-500">
-                            <span class="block text-lg font-black gold-text group-hover:scale-110 transition-transform font-luxury">RDR1</span>
-                        </button>
-                        <button onclick="selectGame('RDR2')" class="group relative bg-zinc-900 border border-yellow-900/30 p-8 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-500">
-                            <span class="block text-lg font-black gold-text group-hover:scale-110 transition-transform font-luxury">RDR2</span>
-                        </button>
-                        <button onclick="selectGame('FC 26 Inject')" class="group relative bg-zinc-900 border border-yellow-900/30 p-8 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-500">
-                            <span class="block text-lg font-black gold-text group-hover:scale-110 transition-transform font-luxury">FC 26 INJECT</span>
-                        </button>
-                        <button onclick="selectGame('FC 25 Inject')" class="group relative bg-zinc-900 border border-yellow-900/30 p-8 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-500">
-                            <span class="block text-lg font-black gold-text group-hover:scale-110 transition-transform font-luxury">FC 25 INJECT</span>
-                        </button>
-                        <button onclick="selectGame('Minecraft')" class="group relative bg-zinc-900 border border-yellow-900/30 p-8 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-500">
-                            <span class="block text-lg font-black gold-text group-hover:scale-110 transition-transform font-luxury">MINECRAFT</span>
-                        </button>
-                        <button onclick="selectGame('Ready Or Not')" class="group relative bg-zinc-900 border border-yellow-900/30 p-8 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-500">
-                            <span class="block text-lg font-black gold-text group-hover:scale-110 transition-transform font-luxury">READY OR NOT</span>
-                        </button>
-                        <button onclick="selectGame('The Walking Dead')" class="group relative bg-zinc-900 border border-yellow-900/30 p-8 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-500">
-                            <span class="block text-lg font-black gold-text group-hover:scale-110 transition-transform font-luxury">THE WALKING DEAD</span>
-                        </button>
-                        <button onclick="selectGame('Pragmata')" class="group relative bg-zinc-900 border border-yellow-900/30 p-8 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-500">
-                            <span class="block text-lg font-black gold-text group-hover:scale-110 transition-transform font-luxury">PRAGMATA</span>
-                        </button>
-                        <button onclick="selectGame('Resident Evil Requiem')" class="group relative bg-zinc-900 border border-yellow-900/30 p-8 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-500">
-                            <span class="block text-lg font-black gold-text group-hover:scale-110 transition-transform font-luxury">Resident Evil Requiem</span>
-                        </button>
-                        <button onclick="selectGame('Devil May Cry 5')" class="group relative bg-zinc-900 border border-yellow-900/30 p-8 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-500">
-                            <span class="block text-lg font-black gold-text group-hover:scale-110 transition-transform font-luxury">Devil May Cry 5</span>
-                        </button>
-                        <button onclick="selectGame('Resident Evil 4 Remake')" class="group relative bg-zinc-900 border border-yellow-900/30 p-8 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-500">
-                            <span class="block text-lg font-black gold-text group-hover:scale-110 transition-transform font-luxury">Resident Evil 4 Remake</span>
-                        </button>
-                        <button onclick="selectGame('Call Of Duty: Infinite Warfare')" class="group relative bg-zinc-900 border border-yellow-900/30 p-8 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-500">
-                            <span class="block text-lg font-black gold-text group-hover:scale-110 transition-transform font-luxury">Call Of Duty: Infinite Warfare</span>
-                        </button>
-                        <button onclick="selectGame('Assassin Creed Valhalla')" class="group relative bg-zinc-900 border border-yellow-900/30 p-8 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-500">
-                            <span class="block text-lg font-black gold-text group-hover:scale-110 transition-transform font-luxury">Assassin Creed Valhalla</span>
-                        </button>
-                        <button onclick="selectGame('Assassin Creed II')" class="group relative bg-zinc-900 border border-yellow-900/30 p-8 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-500">
-                            <span class="block text-lg font-black gold-text group-hover:scale-110 transition-transform font-luxury">Assassin Creed II</span>
-                        </button>
-                        <button onclick="selectGame('Assassin Creed Brotherhood')" class="group relative bg-zinc-900 border border-yellow-900/30 p-8 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-500">
-                            <span class="block text-lg font-black gold-text group-hover:scale-110 transition-transform font-luxury">Assassin Creed Brotherhood</span>
-                        </button>
-                        <button onclick="selectGame('Watch Dogs')" class="group relative bg-zinc-900 border border-yellow-900/30 p-8 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-500">
-                            <span class="block text-lg font-black gold-text group-hover:scale-110 transition-transform font-luxury">Watch Dogs</span>
-                        </button>
-                        <button onclick="selectGame('Watch Dogs 2')" class="group relative bg-zinc-900 border border-yellow-900/30 p-8 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-500">
-                            <span class="block text-lg font-black gold-text group-hover:scale-110 transition-transform font-luxury">Watch Dogs 2</span>
-                        </button>
-                        <button onclick="selectGame('F1 25')" class="group relative bg-zinc-900 border border-yellow-900/30 p-8 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-500">
-                            <span class="block text-lg font-black gold-text group-hover:scale-110 transition-transform font-luxury">F1 25</span>
-                        </button>
-                        <button onclick="selectGame('Need For Speed Most Wanted')" class="group relative bg-zinc-900 border border-yellow-900/30 p-8 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-500">
-                            <span class="block text-lg font-black gold-text group-hover:scale-110 transition-transform font-luxury">Need For Speed Most Wanted</span>
-                        </button>
-                        <button onclick="selectGame('Need For Speed: Rivals')" class="group relative bg-zinc-900 border border-yellow-900/30 p-8 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-500">
-                            <span class="block text-lg font-black gold-text group-hover:scale-110 transition-transform font-luxury">Need For Speed: Rivals</span>
-                        </button>
-                        <button onclick="selectGame('Need For Speed: Heat')" class="group relative bg-zinc-900 border border-yellow-900/30 p-8 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-500">
-                            <span class="block text-lg font-black gold-text group-hover:scale-110 transition-transform font-luxury">Need For Speed: Heat</span>
-                        </button>
-                        <button onclick="selectGame('Dead Space')" class="group relative bg-zinc-900 border border-yellow-900/30 p-8 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-500">
-                            <span class="block text-lg font-black gold-text group-hover:scale-110 transition-transform font-luxury">Dead Space</span>
-                        </button>
-                        <button onclick="selectGame('The Sims 4')" class="group relative bg-zinc-900 border border-yellow-900/30 p-8 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-500">
-                            <span class="block text-lg font-black gold-text group-hover:scale-110 transition-transform font-luxury">The Sims 4</span>
-                        </button>
-                        <button onclick="selectGame('Black Myth: Wukong')" class="group relative bg-zinc-900 border border-yellow-900/30 p-8 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-500">
-                            <span class="block text-lg font-black gold-text group-hover:scale-110 transition-transform font-luxury">Black Myth: Wukong</span>
-                        </button>
-                    </div>
+                <div id="dynamic-games-wrapper" class="text-center">
+                    <h3 class="text-yellow-600 uppercase tracking-[0.3em] text-xs font-black mb-12">Select Game Category to Generate Code</h3>
+                    <!-- Game dinamis akan muncul di sini -->
+                    <div class="flex justify-center py-20"><div class="animate-spin h-10 w-10 border-4 border-yellow-600 border-t-transparent rounded-full"></div></div>
                 </div>
 
                 <!-- Area Output Kode Baru -->
@@ -191,6 +120,16 @@
                             COPY
                         </button>
                     </div>
+                </div>
+
+                <!-- Link ke Dedicated Support Panel -->
+                <div class="text-center mb-8">
+                    <a href="tickets.html" target="_blank" class="inline-flex items-center gap-3 bg-cyan-950/30 border border-cyan-500/50 px-8 py-4 rounded-2xl gold-text font-luxury text-sm hover:bg-cyan-600 hover:text-black transition-all group">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+                        </svg>
+                        BUKA PANEL SUPPORT (TIKET & ULTRAVIEWER)
+                    </a>
                 </div>
 
                 <!-- Tabel Log Riwayat -->
@@ -222,7 +161,7 @@
     <!-- Bagian 3: Logika Firebase & JavaScript -->
     <script type="module">
         // Import koneksi dari file config yang sudah dibuat sebelumnya
-        import { database, ref, set, get, remove } from "./assets/js/firebase-config.js";
+        import { database, ref, set, get, remove, update, onValue } from "./assets/js/firebase-config.js";
 
         // --- KONFIGURASI DOM ---
         const loginSection = document.getElementById('login-section');
@@ -263,6 +202,37 @@
             loginSection.classList.add('hidden');
             dashboardSection.classList.remove('hidden');
         }
+
+        // --- DYNAMIC CONTENT LOADER ---
+        onValue(ref(database, 'games'), (snapshot) => {
+            const wrapper = document.getElementById('dynamic-games-wrapper');
+            if(!snapshot.exists()) {
+                wrapper.innerHTML = '<p class="text-gray-500 py-20">No games found in database. Go to "Add New Game" first.</p>';
+                return;
+            }
+            
+            const data = snapshot.val();
+            const games = Object.values(data);
+            const categories = [...new Set(games.map(g => g.category))].sort();
+
+            let html = `<h3 class="text-yellow-600 uppercase tracking-[0.3em] text-xs font-black mb-12 italic">Select Game to Generate Code</h3>`;
+            
+            categories.forEach(cat => {
+                const gamesInCat = games.filter(g => g.category === cat).sort((a,b) => a.name.localeCompare(b.name));
+                html += `
+                    <div class="mb-10 animate-fade-in">
+                        <h4 class="text-left text-gray-500 text-[10px] font-bold tracking-[0.3em] uppercase mb-4 ml-2 border-l-2 border-yellow-600 pl-3">${cat}</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                            ${gamesInCat.map(g => `
+                                <button onclick="selectGame('${g.name}')" class="group relative bg-zinc-900 border border-yellow-900/30 p-8 rounded-2xl overflow-hidden hover:border-yellow-500 transition-all duration-500">
+                                    <span class="block text-lg font-black gold-text group-hover:scale-110 transition-transform font-luxury uppercase tracking-tighter">${g.name}</span>
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>`;
+            });
+            wrapper.innerHTML = html;
+        });
 
         // --- GENERATOR KODE 20 KARAKTER ---
         window.generateRandomCode = (length = 20) => {
