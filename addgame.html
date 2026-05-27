@@ -17,7 +17,21 @@
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-6">
-    <div class="w-full max-w-2xl animate-fade-in">
+    <!-- LOGIN SECTION: Proteksi Admin -->
+    <div id="login-section" class="w-full max-w-md animate-fade-in">
+        <div class="glass-effect p-10 rounded-3xl text-center shadow-2xl">
+            <h1 class="text-4xl font-black gold-text font-luxury tracking-tighter mb-8 italic">VAULTY</h1>
+            <div class="space-y-6">
+                <input type="password" id="admin-pass" class="w-full bg-gray-950 border gold-border rounded-xl p-4 text-white text-center font-mono focus:outline-none" placeholder="••••••••">
+                <button id="btn-login-admin" class="w-full bg-yellow-600 text-black font-black py-4 rounded-xl hover:brightness-110 transition-all uppercase tracking-widest text-xs">UNLOCK ADD GAME</button>
+                <p id="login-error" class="hidden text-red-500 text-[10px] font-bold uppercase mt-2">Akses Ditolak: Key Tidak Valid</p>
+            </div>
+            <div class="mt-8 text-center"><a href="seller.html" class="text-gray-600 text-[10px] uppercase font-bold hover:text-yellow-600 transition-all tracking-widest">← Kembali ke Seller Panel</a></div>
+        </div>
+    </div>
+
+    <!-- CONTENT SECTION: Tersembunyi sebelum Login -->
+    <div id="add-game-content" class="hidden w-full max-w-2xl animate-fade-in">
         <div class="text-center mb-8">
             <h1 class="text-3xl font-black gold-text font-luxury tracking-tighter mb-2">ADD NEW GAME</h1>
             <p class="text-gray-500 text-[10px] uppercase tracking-[0.3em]">Input Game Details for Customer Portal</p>
@@ -82,7 +96,13 @@
     </div>
 
     <script type="module">
-        import { database, ref, set, onValue, remove } from "./assets/js/firebase-config.js";
+        import { database, ref, set, onValue, remove, get } from "./assets/js/firebase-config.js";
+
+        const loginSection = document.getElementById('login-section');
+        const addGameContent = document.getElementById('add-game-content');
+        const adminPassInput = document.getElementById('admin-pass');
+        const btnLoginAdmin = document.getElementById('btn-login-admin');
+        const loginError = document.getElementById('login-error');
 
         const gameNameInput = document.getElementById('game-name');
         const gameCategorySelect = document.getElementById('game-category');
@@ -94,6 +114,36 @@
 
         let editingGameId = null;
         let gamesCache = {};
+
+        // --- LOGIKA LOGIN & FIREBASE AUTH ---
+        if (sessionStorage.getItem('isLoggedIn') === 'true') {
+            loginSection.classList.add('hidden');
+            addGameContent.classList.remove('hidden');
+        }
+
+        btnLoginAdmin.onclick = async () => {
+            const input = adminPassInput.value;
+            const authRef = ref(database, 'admin_config/access_key');
+            
+            try {
+                const snapshot = await get(authRef);
+                let correctPass;
+
+                if (snapshot.exists()) {
+                    correctPass = snapshot.val();
+                } else {
+                    // Jika di Firebase belum ada datanya, masukkan "g4mevaulty" sebagai default
+                    await set(authRef, "g4mevaulty");
+                    correctPass = "g4mevaulty";
+                }
+
+                if (input === correctPass) {
+                    sessionStorage.setItem('isLoggedIn', 'true');
+                    loginSection.classList.add('hidden');
+                    addGameContent.classList.remove('hidden');
+                } else { loginError.classList.remove('hidden'); }
+            } catch (e) { alert("Gagal memverifikasi password ke Firebase."); }
+        };
 
         const showStatus = (message, type) => {
             statusMessage.classList.remove('hidden', 'bg-red-950/50', 'text-red-500', 'border-red-900', 'bg-green-950/50', 'text-green-500', 'border-green-900');
