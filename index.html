@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GameVault ID - Customer Portal</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;700&display=swap');
@@ -164,35 +163,28 @@
         body:not(.dark-mode) .bg-black\/50 { background: rgba(0, 0, 0, 0.03); }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-6 transition-all duration-700">
+<body class="dark-mode min-h-screen flex items-center justify-center p-6 transition-all duration-700">
 
-    <!-- THEME TOGGLE -->
     <button id="theme-toggle" class="fixed top-6 right-6 z-50 p-3 rounded-full glass-effect hover:scale-110 transition-all duration-300 shadow-xl" title="Toggle Theme">
         <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
         </svg>
     </button>
 
-    <!-- MAIN CONTAINER -->
     <div class="w-full max-w-4xl animate-fade-in">
         
-        <!-- HEADER LOGO -->
         <div class="text-center mb-10">
             <h1 class="text-5xl font-black gold-text font-luxury tracking-tighter mb-3 italic">VAULTY</h1>
             <p class="text-yellow-700 text-[10px] uppercase tracking-[0.5em] font-black opacity-80">Premium Game Distribution</p>
         </div>
 
-        <!-- REDEEM CARD -->
         <div class="glass-effect p-8 md:p-10 rounded-[2.5rem] glow-effect relative overflow-hidden transition-all duration-700 hover:shadow-[0_0_80px_rgba(212,175,55,0.15)] group">
-            <!-- Decorative Element -->
             <div class="absolute -top-10 -right-10 w-40 h-40 bg-yellow-500/10 rounded-full blur-3xl group-hover:bg-yellow-500/20 transition-all duration-700"></div>
             
             <div class="relative z-10">
                 <h2 class="text-xs font-luxury font-black text-yellow-600 mb-8 text-center tracking-[0.3em] uppercase">Security Clearance Required</h2>
                 
-                <!-- Form Penukaran Kode -->
                 <div class="space-y-6">
-                    <!-- Pilih Kategori -->
                     <div>
                         <label class="block text-[9px] uppercase tracking-[0.3em] text-gray-500 font-black mb-2 ml-2">Phase 1: Game Category</label>
                         <select id="category-select" 
@@ -206,7 +198,6 @@
                         </select>
                     </div>
 
-                    <!-- Pilih Game (Muncul setelah kategori dipilih) -->
                     <div id="game-select-container" class="hidden opacity-0">
                         <label class="block text-[9px] uppercase tracking-[0.3em] text-gray-500 font-black mb-2 ml-2">Phase 2: Target Title</label>
                         <select id="game-select" 
@@ -215,7 +206,6 @@
                         </select>
                     </div>
 
-                    <!-- Input Kode -->
                     <div>
                         <label class="block text-[9px] uppercase tracking-[0.3em] text-gray-500 font-black mb-2 ml-2">Phase 3: Access Code</label>
                         <input type="text" id="voucher-code" 
@@ -225,7 +215,6 @@
                             autocomplete="off">
                     </div>
 
-                    <!-- Tombol Redeem -->
                     <button id="btn-redeem" 
                         class="w-full gold-gradient text-black font-black py-4 rounded-2xl hover:scale-[1.02] active:scale-[0.95] transition-all shadow-2xl font-luxury text-sm tracking-widest mt-6 flex items-center justify-center gap-3 btn-shine">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -234,15 +223,12 @@
                         REDEEM NOW
                     </button>
 
-                    <!-- Notifikasi Status -->
                     <div id="redeem-status" class="hidden text-center p-5 rounded-2xl border font-bold text-xs tracking-wide transition-all animate-fade-in">
-                        <!-- Pesan error/sukses akan muncul di sini -->
-                    </div>
+                        </div>
                 </div>
             </div>
         </div>
 
-        <!-- FOOTER INFO -->
         <div class="mt-8 text-center">
             <p class="text-gray-600 text-[10px] uppercase tracking-widest font-bold">
                 System Protected • Secure Transaction • Vault v2.1
@@ -251,9 +237,7 @@
 
     </div>
 
-    <!-- FLOATING SOCIAL BUTTONS -->
     <div class="fixed bottom-6 right-6 flex flex-col gap-4 z-50">
-        <!-- Support Ticket Button -->
         <a href="ticketc.html" 
             class="floating-social w-14 h-14 bg-cyan-600 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 group">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -261,7 +245,6 @@
             </svg>
         </a>
 
-        <!-- Discord Button -->
         <a href="https://discord.gg/SXbHmkFaPz" target="_blank" 
             class="floating-social w-14 h-14 bg-[#5865F2] rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 group">
             <svg class="w-7 h-7 text-white fill-current" viewBox="0 0 24 24">
@@ -269,15 +252,13 @@
             </svg>
         </a>
         
-        <!-- Shopee Button -->
         <a href="https://shopee.co.id/YOUR_SHOP_LINK" target="_blank" 
             class="floating-social w-14 h-14 bg-black rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 group overflow-hidden border-2 border-[#EE4D2D] shopee-button-pulse">
             <img src="shopee.png" class="w-10 h-10 object-contain group-hover:animate-[spin_4s_linear_infinite]" alt="Shopee">
         </a>
     </div>
 
-    <!-- LOGIKA FIREBASE & JAVASCRIPT -->
-<script type="module">
+    <script type="module">
     import { database, ref, get, update, onValue } from "./assets/js/firebase-config.js";
 
     let allGames = [];
@@ -305,7 +286,8 @@
         gameSelect.innerHTML = '<option value="" disabled selected>-- Pilih Game Anda --</option>';
         // Urutkan abjad dan masukkan ke dropdown
         filteredGames.sort((a, b) => a.name.localeCompare(b.name)).forEach(game => {
-            gameSelect.innerHTML += `<option value="${game.name}">${game.name}</option>`;
+            const formattedPrice = game.price ? ` - Rp ${game.price.toLocaleString('id-ID')}` : ' - Free';
+            gameSelect.innerHTML += `<option value="${game.name}">${game.name}${formattedPrice}</option>`;
         });
 
         // Memicu animasi transisi modern
@@ -452,15 +434,20 @@
         }
     });
 
-    // --- THEME TOGGLE LOGIC ---
+    // --- 3. REVISI LOGIKA UTK TEMA DEFAULT DARK MODE ---
     const themeToggle = document.getElementById('theme-toggle');
     const themeIcon = document.getElementById('theme-icon');
     const body = document.body;
 
-    const savedTheme = localStorage.getItem('theme');
+    // Jika belum ada preferensi tersimpan, set default menjadi 'dark'
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    
     if (savedTheme === 'dark') {
         body.classList.add('dark-mode');
         updateThemeIcon(true);
+    } else {
+        body.classList.remove('dark-mode');
+        updateThemeIcon(false);
     }
 
     themeToggle.addEventListener('click', () => {

@@ -55,6 +55,10 @@
                     </select>
                 </div>
                 <div>
+                    <label class="block text-[10px] uppercase tracking-widest text-yellow-600 font-bold mb-2 ml-1">Harga Produk (Rp)</label>
+                    <input type="number" id="game-price" class="w-full bg-gray-950 border gold-border rounded-xl p-4 text-white text-sm" placeholder="Contoh: 50000">
+                </div>
+                <div>
                     <label class="block text-[10px] uppercase tracking-widest text-yellow-600 font-bold mb-2 ml-1">Link Download (Mediafire/Mega.nz)</label>
                     <input type="url" id="download-link" class="w-full bg-gray-950 border gold-border rounded-xl p-4 text-white text-sm" placeholder="https://www.mediafire.com/file/...">
                 </div>
@@ -79,6 +83,7 @@
                     <thead class="text-[10px] uppercase tracking-widest text-yellow-700 bg-black/50">
                         <tr>
                             <th class="px-4 py-3">Name</th>
+                            <th class="px-4 py-3">Price</th>
                             <th class="px-4 py-3">Category</th>
                             <th class="px-4 py-3 text-right">Actions</th>
                         </tr>
@@ -106,6 +111,7 @@
 
         const gameNameInput = document.getElementById('game-name');
         const gameCategorySelect = document.getElementById('game-category');
+        const gamePriceInput = document.getElementById('game-price');
         const downloadLinkInput = document.getElementById('download-link');
         const installationInfoInput = document.getElementById('installation-info');
         const btnAddGame = document.getElementById('btn-add-game');
@@ -242,6 +248,7 @@
             gameListBody.innerHTML = keys.map(id => `
                 <tr class="hover:bg-white/[0.02] transition-colors">
                     <td class="px-4 py-4 text-xs font-bold text-white">${gamesCache[id].name}</td>
+                    <td class="px-4 py-4 text-xs font-mono text-yellow-500">Rp ${(gamesCache[id].price || 0).toLocaleString('id-ID')}</td>
                     <td class="px-4 py-4 text-[10px] text-gray-500 uppercase tracking-widest">${gamesCache[id].category}</td>
                     <td class="px-4 py-4 text-right space-x-3">
                         <button onclick="editGame('${id}')" class="text-yellow-500 text-[10px] font-black hover:underline uppercase">Edit</button>
@@ -254,10 +261,11 @@
         btnAddGame.addEventListener('click', async () => {
             const gameName = gameNameInput.value.trim();
             const category = gameCategorySelect.value;
+            const price = parseInt(gamePriceInput.value) || 0;
             const downloadLink = downloadLinkInput.value.trim();
             const installationInfo = installationInfoInput.value.trim();
 
-            if (!gameName || !category || !downloadLink || !installationInfo) {
+            if (!gameName || !category || !downloadLink || !installationInfo || price < 0) {
                 showStatus("Mohon lengkapi semua kolom!", "error");
                 return;
             }
@@ -288,6 +296,7 @@
                 await set(ref(database, 'games/' + gameId), {
                     name: gameName,
                     category: category,
+                    price: price,
                     downloadLink: downloadLink,
                     installationInfo: installationInfo,
                     timestamp: Date.now()
@@ -299,6 +308,7 @@
                 editingGameId = null;
                 btnAddGame.innerText = "TAMBAH GAME";
                 gameNameInput.value = '';
+                gamePriceInput.value = '';
                 gameCategorySelect.value = '';
                 downloadLinkInput.value = '';
                 installationInfoInput.value = '';
