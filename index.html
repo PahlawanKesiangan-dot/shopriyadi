@@ -46,9 +46,6 @@
         .gold-border {
             border-color: #D4AF37;
         }
-        .bg-dark-vault {
-            background-color: #050505;
-        }
         
         .glow-effect {
             box-shadow: 0 0 40px rgba(212, 175, 55, 0.05);
@@ -104,51 +101,30 @@
             height: 100%;
             background: transparent;
             pointer-events: none;
-            z-index: -1; /* Pastikan di belakang konten */
+            z-index: -1;
             animation: dust-float 30s linear infinite;
             background-image: radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
                               radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
                               radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
                               radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
                               radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-            background-size: 500px 500px; /* Ukuran pola partikel */
-            opacity: 0.5; /* Mengurangi opasitas untuk efek yang lebih halus */
+            background-size: 500px 500px;
+            opacity: 0.5;
         }
 
         @keyframes dust-float {
-            0% {
-                background-position: 0% 0%;
-                transform: scale(1);
-            }
-            25% {
-                background-position: 25% 25%;
-                transform: scale(1.02);
-            }
-            50% {
-                background-position: 50% 50%;
-                transform: scale(1);
-            }
-            75% {
-                background-position: 75% 25%;
-                transform: scale(1.02);
-            }
-            100% {
-                background-position: 100% 0%;
-                transform: scale(1);
-            }
+            0% { background-position: 0% 0%; transform: scale(1); }
+            25% { background-position: 25% 25%; transform: scale(1.02); }
+            50% { background-position: 50% 50%; transform: scale(1); }
+            75% { background-position: 75% 25%; transform: scale(1.02); }
+            100% { background-position: 100% 0%; transform: scale(1); }
         }
 
         /* Shopee Pulse Animation */
         @keyframes shopee-pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(238, 77, 45, 0.7); /* Warna oranye Shopee */
-            }
-            50% {
-                box-shadow: 0 0 0 8px rgba(238, 77, 45, 0); /* Memudar keluar */
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(238, 77, 45, 0.7); /* Kembali ke awal */
-            }
+            0% { box-shadow: 0 0 0 0 rgba(238, 77, 45, 0.7); }
+            50% { box-shadow: 0 0 0 8px rgba(238, 77, 45, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(238, 77, 45, 0.7); }
         }
         .shopee-button-pulse { animation: shopee-pulse 2s infinite; }
 
@@ -163,7 +139,7 @@
         body:not(.dark-mode) .bg-black\/50 { background: rgba(0, 0, 0, 0.03); }
     </style>
 </head>
-<body class="dark-mode min-h-screen flex items-center justify-center p-6 transition-all duration-700">
+<body class="dark-mode min-h-screen flex items-center justify-center p-6 transition-all duration-700 pt-16 pb-20">
 
     <button id="theme-toggle" class="fixed top-6 right-6 z-50 p-3 rounded-full glass-effect hover:scale-110 transition-all duration-300 shadow-xl" title="Toggle Theme">
         <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -171,72 +147,99 @@
         </svg>
     </button>
 
-    <div class="w-full max-w-4xl animate-fade-in">
+    <div class="w-full max-w-6xl animate-fade-in flex flex-col gap-6">
         
-        <div class="text-center mb-10">
-            <h1 class="text-5xl font-black gold-text font-luxury tracking-tighter mb-3 italic">VAULTY</h1>
+        <div class="text-center mb-2 mt-4">
+            <h1 class="text-5xl font-black gold-text font-luxury tracking-tighter mb-3 italic">GameVault ID</h1>
             <p class="text-yellow-700 text-[10px] uppercase tracking-[0.5em] font-black opacity-80">Premium Game Distribution</p>
         </div>
 
-        <div class="glass-effect p-8 md:p-10 rounded-[2.5rem] glow-effect relative overflow-hidden transition-all duration-700 hover:shadow-[0_0_80px_rgba(212,175,55,0.15)] group">
-            <div class="absolute -top-10 -right-10 w-40 h-40 bg-yellow-500/10 rounded-full blur-3xl group-hover:bg-yellow-500/20 transition-all duration-700"></div>
+        <!-- FITUR BARU: BANNER PENGUMUMAN DARI ADMIN -->
+        <div id="portal-announcement-box" class="hidden glass-effect p-4 rounded-2xl border-l-4 border-l-yellow-500 text-center animate-fade-in shadow-xl">
+            <p id="announcement-text" class="text-sm font-bold text-yellow-500 tracking-wide"></p>
+        </div>
+
+        <!-- GRID LAYOUT -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch mt-4">
             
-            <div class="relative z-10">
-                <h2 class="text-xs font-luxury font-black text-yellow-600 mb-8 text-center tracking-[0.3em] uppercase">Security Clearance Required</h2>
+            <!-- KOLOM KIRI: VIDEO TUTORIAL -->
+            <div class="glass-effect p-6 md:p-8 rounded-[2.5rem] relative overflow-hidden flex flex-col shadow-lg">
+                <h2 class="text-xs font-luxury font-black text-yellow-600 mb-6 text-center tracking-[0.3em] uppercase">Tutorial & Informasi</h2>
                 
-                <div class="space-y-6">
-                    <div>
-                        <label class="block text-[9px] uppercase tracking-[0.3em] text-gray-500 font-black mb-2 ml-2">Phase 1: Game Category</label>
-                        <select id="category-select" 
-                            class="w-full bg-black/50 border border-white/10 rounded-2xl p-4 text-white focus:border-yellow-500/50 focus:outline-none transition-all appearance-none cursor-pointer hover:bg-black/80">
-                            <option value="" disabled selected>-- Pilih Kategori --</option>
-                            <option value="EA">Electronic Arts (EA)</option>
-                            <option value="Rockstar Games">Rockstar Games</option>
-                            <option value="Ubisoft">Ubisoft</option>
-                            <option value="Denuvo">Denuvo Protected</option>
-                            <option value="Other">Other Publishers</option>
-                        </select>
+                <div class="w-full flex-grow flex flex-col items-center justify-center">
+                    <div class="w-full aspect-video bg-black rounded-xl overflow-hidden shadow-2xl border border-yellow-900/30">
+                        <video id="portal-video-player" controls class="w-full h-full object-cover" src="TUTORIAL 1.mp4">
+                            Browser Anda tidak mendukung tag video.
+                        </video>
                     </div>
+                </div>
+                
+                <p class="text-[9px] text-gray-500 mt-6 text-center tracking-widest uppercase font-bold">Harap tonton instruksi sebelum melakukan redeem kode</p>
+            </div>
 
-                    <div id="game-select-container" class="hidden opacity-0">
-                        <label class="block text-[9px] uppercase tracking-[0.3em] text-gray-500 font-black mb-2 ml-2">Phase 2: Target Title</label>
-                        <select id="game-select" 
-                            class="w-full bg-black/50 border border-white/10 rounded-2xl p-4 text-white focus:border-yellow-500/50 focus:outline-none transition-all appearance-none cursor-pointer hover:bg-black/80">
-                            <option value="" disabled selected>-- Pilih Game Anda --</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-[9px] uppercase tracking-[0.3em] text-gray-500 font-black mb-2 ml-2">Phase 3: Access Code</label>
-                        <input type="text" id="voucher-code" 
-                            maxlength="20"
-                            class="w-full bg-black/50 border border-white/10 rounded-2xl p-4 text-white focus:border-yellow-500/50 focus:outline-none transition-all font-mono placeholder:text-zinc-800 text-center tracking-[0.2em]"
-                            placeholder="0000-0000-0000-0000"
-                            autocomplete="off">
-                    </div>
-
-                    <button id="btn-redeem" 
-                        class="w-full gold-gradient text-black font-black py-4 rounded-2xl hover:scale-[1.02] active:scale-[0.95] transition-all shadow-2xl font-luxury text-sm tracking-widest mt-6 flex items-center justify-center gap-3 btn-shine">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                        </svg>
-                        REDEEM NOW
-                    </button>
-
-                    <div id="redeem-status" class="hidden text-center p-5 rounded-2xl border font-bold text-xs tracking-wide transition-all animate-fade-in">
+            <!-- KOLOM KANAN: FORM REDEEM -->
+            <div class="glass-effect p-8 md:p-10 rounded-[2.5rem] glow-effect relative overflow-hidden transition-all duration-700 hover:shadow-[0_0_80px_rgba(212,175,55,0.15)] group flex flex-col justify-center h-full">
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-yellow-500/10 rounded-full blur-3xl group-hover:bg-yellow-500/20 transition-all duration-700 pointer-events-none"></div>
+                
+                <div class="relative z-10">
+                    <h2 class="text-xs font-luxury font-black text-yellow-600 mb-8 text-center tracking-[0.3em] uppercase">Security Clearance Required</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-[9px] uppercase tracking-[0.3em] text-gray-500 font-black mb-2 ml-2">Phase 1: Game Category</label>
+                            <select id="category-select" 
+                                class="w-full bg-black/50 border border-white/10 rounded-2xl p-4 text-white focus:border-yellow-500/50 focus:outline-none transition-all appearance-none cursor-pointer hover:bg-black/80">
+                                <option value="" disabled selected>-- Pilih Kategori --</option>
+                                <option value="EA">Electronic Arts (EA)</option>
+                                <option value="Rockstar Games">Rockstar Games</option>
+                                <option value="Ubisoft">Ubisoft</option>
+                                <option value="Denuvo">Denuvo Protected</option>
+                                <option value="Other">Other Publishers</option>
+                            </select>
                         </div>
+
+                        <div id="game-select-container" class="hidden opacity-0">
+                            <label class="block text-[9px] uppercase tracking-[0.3em] text-gray-500 font-black mb-2 ml-2">Phase 2: Target Title</label>
+                            <select id="game-select" 
+                                class="w-full bg-black/50 border border-white/10 rounded-2xl p-4 text-white focus:border-yellow-500/50 focus:outline-none transition-all appearance-none cursor-pointer hover:bg-black/80">
+                                <option value="" disabled selected>-- Pilih Game Anda --</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-[9px] uppercase tracking-[0.3em] text-gray-500 font-black mb-2 ml-2">Phase 3: Access Code</label>
+                            <input type="text" id="voucher-code" 
+                                maxlength="20"
+                                class="w-full bg-black/50 border border-white/10 rounded-2xl p-4 text-white focus:border-yellow-500/50 focus:outline-none transition-all font-mono placeholder:text-zinc-800 text-center tracking-[0.2em]"
+                                placeholder="0000-0000-0000-0000"
+                                autocomplete="off">
+                        </div>
+
+                        <button id="btn-redeem" 
+                            class="w-full gold-gradient text-black font-black py-4 rounded-2xl hover:scale-[1.02] active:scale-[0.95] transition-all shadow-2xl font-luxury text-sm tracking-widest mt-6 flex items-center justify-center gap-3 btn-shine">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                            REDEEM NOW
+                        </button>
+
+                        <div id="redeem-status" class="hidden text-center p-5 rounded-2xl border font-bold text-xs tracking-wide transition-all animate-fade-in">
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+
+        </div> <!-- End of Grid -->
 
         <div class="mt-8 text-center">
             <p class="text-gray-600 text-[10px] uppercase tracking-widest font-bold">
-                System Protected • Secure Transaction • Vault v2.1
+                System Protected • Secure Transaction • Vault v2.2
             </p>
         </div>
 
     </div>
 
+    <!-- Floating Social Buttons -->
     <div class="fixed bottom-6 right-6 flex flex-col gap-4 z-50">
         <a href="ticketc.html" 
             class="floating-social w-14 h-14 bg-cyan-600 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 group">
@@ -261,6 +264,33 @@
     <script type="module">
     import { database, ref, get, update, onValue } from "./assets/js/firebase-config.js";
 
+    // --- MENDAPATKAN SETTINGAN PORTAL DARI FIREBASE ---
+    const announcementBox = document.getElementById('portal-announcement-box');
+    const announcementText = document.getElementById('announcement-text');
+    const videoPlayer = document.getElementById('portal-video-player');
+
+    onValue(ref(database, 'portal_settings'), (snapshot) => {
+        if (snapshot.exists()) {
+            const data = snapshot.val();
+            
+            // Render pengumuman
+            if (data.announcement && data.announcement.trim() !== '') {
+                announcementText.innerText = data.announcement;
+                announcementBox.classList.remove('hidden');
+            } else {
+                announcementBox.classList.add('hidden');
+            }
+
+            // Render video
+            if (data.video_src && data.video_src.trim() !== '') {
+                videoPlayer.src = data.video_src;
+            } else {
+                videoPlayer.src = "TUTORIAL 1.mp4"; // Default fallback
+            }
+        }
+    });
+
+    // --- LOGIKA REDEEM VOUCHER ---
     let allGames = [];
 
     const categorySelect = document.getElementById('category-select');
@@ -280,23 +310,21 @@
     // Logika pemilihan kategori
     categorySelect.addEventListener('change', () => {
         const selectedCat = categorySelect.value;
-        // Filter allGames berdasarkan kategori yang dipilih
         const filteredGames = allGames.filter(game => game.category === selectedCat);
         
         gameSelect.innerHTML = '<option value="" disabled selected>-- Pilih Game Anda --</option>';
-        // Urutkan abjad dan masukkan ke dropdown
         filteredGames.sort((a, b) => a.name.localeCompare(b.name)).forEach(game => {
             const formattedPrice = game.price ? ` - Rp ${game.price.toLocaleString('id-ID')}` : ' - Free';
             gameSelect.innerHTML += `<option value="${game.name}">${game.name}${formattedPrice}</option>`;
         });
 
-        // Memicu animasi transisi modern
+        // Animasi transisi
         gameSelectContainer.classList.remove('hidden', 'animate-fade-in');
-        void gameSelectContainer.offsetWidth; // Trigger reflow untuk meriset animasi
+        void gameSelectContainer.offsetWidth; // Trigger reflow
         gameSelectContainer.classList.add('animate-fade-in');
     });
 
-    // Fungsi menampilkan status dengan gaya box yang elegan
+    // Fungsi menampilkan status pesan
     const showStatus = (message, type) => {
         statusBox.classList.remove('hidden', 'bg-red-950/50', 'text-red-500', 'border-red-900', 'bg-green-950/50', 'text-green-500', 'border-green-900', 'bg-yellow-950/50', 'text-yellow-500', 'border-yellow-900');
         
@@ -326,7 +354,8 @@
         }
         return { selectedGame, enteredCode };
     };
-    // --- LANJUTAN LOGIKA FIREBASE & TOMBOL KONFIRMASI ---
+
+    // Eksekusi Redeem Button
     btnRedeem.addEventListener('click', async () => {
         const inputData = validateInput();
         
@@ -350,61 +379,46 @@
                 if (snapshot.exists()) {
                     const data = snapshot.val();
 
-                    // 1. Cek kecocokan game
                     if (data.game !== selectedGame) {
                         showStatus(`Maaf, kode ini bukan untuk ${selectedGame}.`, "error");
                         btnRedeem.disabled = false;
-                        btnRedeem.innerHTML = `
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                            </svg>
-                            REDEEM NOW
-                        `;
+                        resetButton();
                         return;
                     }
 
-                    // 2. Cek status kode
                     if (data.status !== 'active') {
                         showStatus("Gagal! Kode ini sudah pernah digunakan atau kadaluwarsa.", "error");
                         btnRedeem.disabled = false;
-                        btnRedeem.innerHTML = `
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                            </svg>
-                            REDEEM NOW
-                        `;
+                        resetButton();
                         return;
                     }
 
-                    // 3. Update status di Firebase
+                    // Update status
                     await update(codeRef, {
                         status: 'used',
                         redeemedAt: Date.now()
                     });
 
-                    // 4. Ambil data link dan informasi
+                    // Ambil detail instruksi dari database
                     const gameDetails = allGames.find(game => game.name === selectedGame);
                     const downloadUrl = gameDetails ? gameDetails.downloadLink : '#';
                     const infoTambahan = gameDetails ? gameDetails.installationInfo : 'Informasi instalasi tidak ditemukan.';
                     
-                    // 5. Tampilkan Informasi Lengkap & Tombol Konfirmasi Manual
                     showStatus(`
                         <div class="text-left space-y-4">
                             <p class="font-black text-green-500 uppercase tracking-widest text-center">✓ REDEEM BERHASIL</p>
-                            <div class="bg-black/40 p-4 rounded-lg border border-green-900/30 text-xs leading-relaxed">
+                            <div class="bg-black/40 p-4 rounded-lg border border-green-900/30 text-xs leading-relaxed max-h-40 overflow-y-auto">
                                 ${infoTambahan || 'Tidak ada instruksi instalasi yang tersedia.'}
                             </div>
                             <button id="btn-confirm-download" 
                                 class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-3 rounded-lg transition-all shadow-lg uppercase tracking-tighter text-xs">
-                                SAYA MENGERTI, LANJUT KE MEDIAFIRE / MEGA.NZ
+                                SAYA MENGERTI, LANJUT KE LINK DOWNLOAD
                             </button>
                         </div>
                     `, "success");
 
-                    // Sembunyikan tombol redeem asli agar tidak membingungkan
                     btnRedeem.classList.add('hidden');
 
-                    // 6. Tambahkan event listener ke tombol konfirmasi yang baru dibuat
                     document.getElementById('btn-confirm-download').addEventListener('click', () => {
                         window.location.href = downloadUrl;
                     });
@@ -412,34 +426,32 @@
                 } else {
                     showStatus("Kode tidak ditemukan! Periksa kembali pengetikan Anda.", "error");
                     btnRedeem.disabled = false;
-                    btnRedeem.innerHTML = `
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                        </svg>
-                        REDEEM NOW
-                    `;
+                    resetButton();
                 }
 
             } catch (error) {
                 console.error("Error:", error);
                 showStatus("Gagal terhubung ke database.", "error");
                 btnRedeem.disabled = false;
-                btnRedeem.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                    REDEEM NOW
-                `;
+                resetButton();
             }
         }
     });
 
-    // --- 3. REVISI LOGIKA UTK TEMA DEFAULT DARK MODE ---
+    function resetButton() {
+        btnRedeem.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            REDEEM NOW
+        `;
+    }
+
+    // --- LOGIKA THEME TOGGLE (DARK/LIGHT) ---
     const themeToggle = document.getElementById('theme-toggle');
     const themeIcon = document.getElementById('theme-icon');
     const body = document.body;
 
-    // Jika belum ada preferensi tersimpan, set default menjadi 'dark'
     const savedTheme = localStorage.getItem('theme') || 'dark';
     
     if (savedTheme === 'dark') {
