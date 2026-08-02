@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Game | GameVault ID</title>
+    <title>Add New Game & Settings | GameVault ID</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;700&display=swap');
@@ -23,7 +23,7 @@
             <h1 class="text-4xl font-black gold-text font-luxury tracking-tighter mb-8 italic">VAULTY</h1>
             <div class="space-y-6">
                 <input type="password" id="admin-pass" class="w-full bg-gray-950 border gold-border rounded-xl p-4 text-white text-center font-mono focus:outline-none" placeholder="••••••••">
-                <button id="btn-login-admin" class="w-full bg-yellow-600 text-black font-black py-4 rounded-xl hover:brightness-110 transition-all uppercase tracking-widest text-xs">UNLOCK ADD GAME</button>
+                <button id="btn-login-admin" class="w-full bg-yellow-600 text-black font-black py-4 rounded-xl hover:brightness-110 transition-all uppercase tracking-widest text-xs">UNLOCK ADMIN PANEL</button>
                 <p id="login-error" class="hidden text-red-500 text-[10px] font-bold uppercase mt-2">Akses Ditolak: Key Tidak Valid</p>
             </div>
             <div class="mt-8 text-center"><a href="seller.html" class="text-gray-600 text-[10px] uppercase font-bold hover:text-yellow-600 transition-all tracking-widest">← Kembali ke Seller Panel</a></div>
@@ -31,13 +31,32 @@
     </div>
 
     <!-- CONTENT SECTION: Tersembunyi sebelum Login -->
-    <div id="add-game-content" class="hidden w-full max-w-2xl animate-fade-in">
+    <div id="add-game-content" class="hidden w-full max-w-2xl animate-fade-in my-8">
         <div class="text-center mb-8">
-            <h1 class="text-3xl font-black gold-text font-luxury tracking-tighter mb-2">ADD NEW GAME</h1>
-            <p class="text-gray-500 text-[10px] uppercase tracking-[0.3em]">Input Game Details for Customer Portal</p>
+            <h1 class="text-3xl font-black gold-text font-luxury tracking-tighter mb-2">VAULTY ADMIN PANEL</h1>
+            <p class="text-gray-500 text-[10px] uppercase tracking-[0.3em]">Manage Games & Portal Settings</p>
         </div>
 
+        <!-- FITUR BARU: PORTAL SETTINGS -->
+        <div class="glass-effect p-8 rounded-3xl relative overflow-hidden mb-8 border-cyan-700 bg-cyan-900/10">
+            <h3 class="text-xs font-black text-cyan-400 font-luxury tracking-widest uppercase mb-4 text-center">Tampilan Portal (index.html)</h3>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-[10px] uppercase tracking-widest text-cyan-500 font-bold mb-2 ml-1">Teks Informasi (Banner Pengumuman)</label>
+                    <textarea id="portal-announcement" class="w-full bg-gray-950 border border-cyan-800 rounded-xl p-4 text-white text-sm h-24" placeholder="Contoh: Info terbaru, server sedang maintenance... (Kosongkan jika tidak ada pengumuman)"></textarea>
+                </div>
+                <div>
+                    <label class="block text-[10px] uppercase tracking-widest text-cyan-500 font-bold mb-2 ml-1">Nama File Video / Link Video URL</label>
+                    <input type="text" id="portal-video" class="w-full bg-gray-950 border border-cyan-800 rounded-xl p-4 text-white text-sm" placeholder="Contoh: TUTORIAL 1.mp4">
+                </div>
+                <button id="btn-save-settings" class="w-full bg-cyan-800 text-white font-black py-4 rounded-xl hover:bg-cyan-700 transition-all uppercase tracking-widest text-xs">SIMPAN PENGATURAN PORTAL</button>
+                <div id="settings-status" class="hidden text-center p-3 rounded-xl text-sm font-bold mt-4"></div>
+            </div>
+        </div>
+
+        <!-- FITUR LAMA: MANAGE GAMES -->
         <div class="glass-effect p-8 rounded-3xl relative overflow-hidden">
+            <h3 class="text-xs font-black gold-text font-luxury tracking-widest uppercase mb-4 text-center">Form Input Game</h3>
             <div class="space-y-4">
                 <div>
                     <label class="block text-[10px] uppercase tracking-widest text-yellow-600 font-bold mb-2 ml-1">Nama Game</label>
@@ -76,7 +95,7 @@
         </div>
 
         <!-- TABLE LIST SECTION -->
-        <div class="mt-12 glass-effect p-6 rounded-3xl overflow-hidden">
+        <div class="mt-8 glass-effect p-6 rounded-3xl overflow-hidden">
             <h3 class="text-xs font-black gold-text font-luxury tracking-widest uppercase mb-4 text-center">Manage Existing Games</h3>
             <div class="overflow-x-auto">
                 <table class="w-full text-left">
@@ -103,11 +122,17 @@
     <script type="module">
         import { database, ref, set, onValue, remove, get } from "./assets/js/firebase-config.js";
 
+        // --- DOM ELEMENTS ---
         const loginSection = document.getElementById('login-section');
         const addGameContent = document.getElementById('add-game-content');
         const adminPassInput = document.getElementById('admin-pass');
         const btnLoginAdmin = document.getElementById('btn-login-admin');
         const loginError = document.getElementById('login-error');
+
+        const portalAnnouncement = document.getElementById('portal-announcement');
+        const portalVideo = document.getElementById('portal-video');
+        const btnSaveSettings = document.getElementById('btn-save-settings');
+        const settingsStatus = document.getElementById('settings-status');
 
         const gameNameInput = document.getElementById('game-name');
         const gameCategorySelect = document.getElementById('game-category');
@@ -138,7 +163,6 @@
                 if (snapshot.exists()) {
                     correctPass = snapshot.val();
                 } else {
-                    // Jika di Firebase belum ada datanya, masukkan "g4mevaulty" sebagai default
                     await set(authRef, "g4mevaulty");
                     correctPass = "g4mevaulty";
                 }
@@ -162,7 +186,36 @@
             statusMessage.classList.remove('hidden');
         };
 
-        // DATA LEGASI (Pindahkan dari customer.html ke sini untuk sekali Import)
+        // --- LOGIKA PORTAL SETTINGS (BARU) ---
+        onValue(ref(database, 'portal_settings'), (snapshot) => {
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                portalAnnouncement.value = data.announcement || "";
+                portalVideo.value = data.video_src || "TUTORIAL 1.mp4";
+            }
+        });
+
+        btnSaveSettings.addEventListener('click', async () => {
+            btnSaveSettings.innerText = "MENYIMPAN...";
+            try {
+                await set(ref(database, 'portal_settings'), {
+                    announcement: portalAnnouncement.value,
+                    video_src: portalVideo.value || "TUTORIAL 1.mp4"
+                });
+                
+                settingsStatus.innerText = "Pengaturan portal berhasil disimpan!";
+                settingsStatus.className = "text-center p-3 rounded-xl text-sm font-bold mt-4 bg-green-950/50 text-green-500 border border-green-900 block";
+            } catch (error) {
+                settingsStatus.innerText = "Gagal menyimpan pengaturan.";
+                settingsStatus.className = "text-center p-3 rounded-xl text-sm font-bold mt-4 bg-red-950/50 text-red-500 border border-red-900 block";
+            }
+            setTimeout(() => { 
+                settingsStatus.classList.add('hidden'); 
+                btnSaveSettings.innerText = "SIMPAN PENGATURAN PORTAL"; 
+            }, 3000);
+        });
+
+        // --- DATA LEGASI ---
         const legacyGames = [
             { name: "GTA 5 Legacy", category: "Rockstar Games", link: "https://mega.nz/file/9s5i1YpK#8n2l7Xo3mNqj0eXh6Zt9v8uJ4a5b2c1d0eF7gH9kLm", info: "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, Pastikan file .Manifest di folder inject.zip dipaste ke folder Steam > Depotcache, dan Steam > config > depotcache, File .Lua yang ada di inject.zip, dipaste di Steam > config > st-plugin, Restart steam dan install Game dahulu, lalu pasang file yang ada di folder Bypass.zip langsung ke directory game, baru nyalakan Real-Time Protection." },
             { name: "GTA 5 Enhanced", category: "Rockstar Games", link: "https://mega.nz/file/lygDCA6S#ORPMp0N2esWi3ZW74oRbmU4YpZCLmZqiT-H_Y8rIplE", info: "PENTING: Matikan Real-time Protection Antivirus agar injector tidak terhapus otomatis saat diekstrak, Pastikan file .Manifest di folder inject.zip dipaste ke folder Steam > Depotcache, dan Steam > config > depotcache, File .Lua yang ada di inject.zip, dipaste di Steam > config > st-plugin, Restart steam dan install Game dahulu, lalu pasang file yang ada di folder Bypass.zip langsung ke directory game, Tambahkan folder Grand Theft Auto V Enhanced ke Exclusion di windows defender, Jalankan game melalui GTA 5_Enhanced.exe, baru nyalakan Real-Time Protection." },
@@ -209,7 +262,7 @@
             alert("Import Berhasil!");
         };
 
-        // Fungsi global untuk tombol Edit & Delete
+        // --- FUNGSI GLOBAL EDIT / DELETE ---
         window.editGame = (id) => {
             const game = gamesCache[id];
             if (!game) return;
@@ -217,6 +270,7 @@
             editingGameId = id;
             gameNameInput.value = game.name;
             gameCategorySelect.value = game.category;
+            if (game.price !== undefined) gamePriceInput.value = game.price;
             downloadLinkInput.value = game.downloadLink;
             installationInfoInput.value = game.installationInfo;
             
@@ -235,18 +289,18 @@
             }
         };
 
-        // Ambil dan tampilkan daftar game secara real-time
+        // --- TAMPILKAN LIST GAME SECARA REAL-TIME ---
         onValue(ref(database, 'games'), (snapshot) => {
             gamesCache = snapshot.val() || {};
             const keys = Object.keys(gamesCache);
             
             if (keys.length === 0) {
-                gameListBody.innerHTML = '<tr><td colspan="3" class="px-4 py-8 text-center text-gray-600 italic">No games found...</td></tr>';
+                gameListBody.innerHTML = '<tr><td colspan="4" class="px-4 py-8 text-center text-gray-600 italic">No games found...</td></tr>';
                 return;
             }
 
             gameListBody.innerHTML = keys.map(id => `
-                <tr class="hover:bg-white/[0.02] transition-colors">
+                <tr class="hover:bg-white/[0.02] transition-colors border-b border-gray-900/50">
                     <td class="px-4 py-4 text-xs font-bold text-white">${gamesCache[id].name}</td>
                     <td class="px-4 py-4 text-xs font-mono text-yellow-500">Rp ${(gamesCache[id].price || 0).toLocaleString('id-ID')}</td>
                     <td class="px-4 py-4 text-[10px] text-gray-500 uppercase tracking-widest">${gamesCache[id].category}</td>
@@ -258,6 +312,7 @@
             `).join('');
         });
 
+        // --- TAMBAH / UPDATE GAME ---
         btnAddGame.addEventListener('click', async () => {
             const gameName = gameNameInput.value.trim();
             const category = gameCategorySelect.value;
@@ -272,7 +327,6 @@
 
             const gameId = gameName.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
 
-            // Validasi duplikasi nama game
             if (!editingGameId && gamesCache[gameId]) {
                 showStatus("Gagal: Nama game ini sudah ada di database!", "error");
                 return;
@@ -288,7 +342,6 @@
             statusMessage.classList.add('hidden');
 
             try {
-                // Jika sedang mengedit dan nama game berubah (ID berubah), hapus entri lama
                 if (editingGameId && editingGameId !== gameId) {
                     await remove(ref(database, 'games/' + editingGameId));
                 }
@@ -304,7 +357,6 @@
 
                 showStatus(editingGameId ? "Game berhasil diperbarui!" : "Game berhasil ditambahkan!", "success");
                 
-                // Reset form
                 editingGameId = null;
                 btnAddGame.innerText = "TAMBAH GAME";
                 gameNameInput.value = '';
@@ -312,7 +364,7 @@
                 gameCategorySelect.value = '';
                 downloadLinkInput.value = '';
                 installationInfoInput.value = '';
-                gameCategorySelect.selectedIndex = 0; // Reset dropdown
+                gameCategorySelect.selectedIndex = 0;
 
             } catch (error) {
                 console.error("Error adding game:", error);
