@@ -288,7 +288,9 @@
     const btnViewTutorial = document.getElementById('btn-view-tutorial');
     const btnCloseTutorial = document.getElementById('btn-close-tutorial');
     const btnDownloadFix = document.getElementById('btn-download-fix');
-    let currentFixSource = "FIX.zip";
+    const bundledVideoSource = "TUTORIAL 1.mp4";
+    const bundledFixSource = "FIX.zip";
+    let currentFixSource = bundledFixSource;
 
     const isSafeSource = (source) => {
         if (!source) return false;
@@ -331,7 +333,7 @@
         // Buat elemen download baru agar sumber file fix tidak pernah memakai elemen video.
         const safeFixSource = isSafeSource(currentFixSource) && !isVideoSource(currentFixSource)
             ? currentFixSource
-            : "FIX.zip";
+            : bundledFixSource;
         const downloadLink = document.createElement('a');
         downloadLink.href = safeFixSource;
 
@@ -339,7 +341,7 @@
             downloadLink.target = '_blank';
             downloadLink.rel = 'noopener noreferrer';
         } else {
-            downloadLink.download = safeFixSource.split('/').pop() || 'FIX.zip';
+            downloadLink.download = safeFixSource.split('/').pop() || bundledFixSource;
         }
 
         document.body.appendChild(downloadLink);
@@ -360,14 +362,14 @@
             }
 
             // Render video
-            const videoSource = data.video_src && data.video_src.trim() !== '' ? data.video_src.trim() : "TUTORIAL 1.mp4";
-            videoPlayer.src = isSafeSource(videoSource) ? videoSource : "TUTORIAL 1.mp4";
+            const videoSource = data.video_src && data.video_src.trim() !== '' ? data.video_src.trim() : bundledVideoSource;
+            videoPlayer.src = isSafeSource(videoSource) ? videoSource : bundledVideoSource;
 
             // Render tautan file fix
-            const fixSource = data.fix_src && data.fix_src.trim() !== '' ? data.fix_src.trim() : "FIX.zip";
+            const fixSource = data.fix_src && data.fix_src.trim() !== '' ? data.fix_src.trim() : bundledFixSource;
             currentFixSource = isSafeSource(fixSource) && !isVideoSource(fixSource) && fixSource !== videoSource
                 ? fixSource
-                : "FIX.zip";
+                : bundledFixSource;
         }
     });
 
