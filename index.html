@@ -162,16 +162,17 @@
         <!-- GRID LAYOUT -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch mt-4">
             
-            <!-- KOLOM KIRI: VIDEO TUTORIAL -->
+            <!-- KOLOM KIRI: AKSES TUTORIAL & FILE FIX -->
             <div class="glass-effect p-6 md:p-8 rounded-[2.5rem] relative overflow-hidden flex flex-col shadow-lg">
                 <h2 class="text-xs font-luxury font-black text-yellow-600 mb-6 text-center tracking-[0.3em] uppercase">Tutorial & Informasi</h2>
                 
-                <div class="w-full flex-grow flex flex-col items-center justify-center">
-                    <div class="w-full aspect-video bg-black rounded-xl overflow-hidden shadow-2xl border border-yellow-900/30">
-                        <video id="portal-video-player" controls class="w-full h-full object-cover" src="TUTORIAL 1.mp4">
-                            Browser Anda tidak mendukung tag video.
-                        </video>
-                    </div>
+                <div class="w-full flex-grow flex flex-col items-center justify-center gap-4">
+                    <button id="btn-view-tutorial" type="button" class="w-full gold-gradient text-black font-black py-4 rounded-2xl hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl font-luxury text-sm tracking-widest btn-shine">
+                        LIHAT TUTORIAL
+                    </button>
+                    <button id="btn-download-fix" type="button" class="w-full bg-cyan-700 hover:bg-cyan-600 text-white text-center font-black py-4 rounded-2xl hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl font-luxury text-sm tracking-widest">
+                        UNDUH FILE FIX
+                    </button>
                 </div>
                 
                 <p class="text-[9px] text-gray-500 mt-6 text-center tracking-widest uppercase font-bold">Harap tonton instruksi sebelum melakukan redeem kode</p>
@@ -239,6 +240,21 @@
 
     </div>
 
+    <!-- Modal Video Tutorial -->
+    <div id="tutorial-modal" class="hidden fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm p-4 items-center justify-center" role="dialog" aria-modal="true" aria-labelledby="tutorial-modal-title">
+        <div class="w-full max-w-4xl glass-effect rounded-3xl p-5 md:p-7 shadow-2xl animate-fade-in">
+            <div class="flex items-center justify-between gap-4 mb-4">
+                <h2 id="tutorial-modal-title" class="font-luxury font-black text-yellow-500 tracking-widest text-sm uppercase">Video Tutorial</h2>
+                <button id="btn-close-tutorial" type="button" class="w-10 h-10 rounded-full bg-red-600 hover:bg-red-500 text-white text-xl font-black transition-all" aria-label="Tutup video tutorial">&times;</button>
+            </div>
+            <div class="w-full aspect-video bg-black rounded-xl overflow-hidden border border-yellow-900/30">
+                <video id="portal-video-player" controls preload="metadata" class="w-full h-full object-contain" src="TUTORIAL 1.mp4">
+                    Browser Anda tidak mendukung tag video.
+                </video>
+            </div>
+        </div>
+    </div>
+
     <!-- Floating Social Buttons -->
     <div class="fixed bottom-6 right-6 flex flex-col gap-4 z-50">
         <a href="ticketc.html" 
@@ -268,6 +284,68 @@
     const announcementBox = document.getElementById('portal-announcement-box');
     const announcementText = document.getElementById('announcement-text');
     const videoPlayer = document.getElementById('portal-video-player');
+    const tutorialModal = document.getElementById('tutorial-modal');
+    const btnViewTutorial = document.getElementById('btn-view-tutorial');
+    const btnCloseTutorial = document.getElementById('btn-close-tutorial');
+    const btnDownloadFix = document.getElementById('btn-download-fix');
+    let currentFixSource = "FIX.zip";
+
+    const isSafeSource = (source) => {
+        if (!source) return false;
+        // Nama file/path relatif diperbolehkan, tetapi protokol berbahaya ditolak.
+        if (!/^[a-z][a-z\d+.-]*:/i.test(source) && !source.startsWith('//')) return true;
+        try {
+            const url = new URL(source, window.location.href);
+            return ['http:', 'https:'].includes(url.protocol);
+        } catch {
+            return false;
+        }
+    };
+
+    const isVideoSource = (source) => /\.(mp4|webm|ogg|mov|m4v)(?:[?#].*)?$/i.test(source);
+
+    const openTutorial = () => {
+        tutorialModal.classList.remove('hidden');
+        tutorialModal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+        videoPlayer.play().catch(() => {});
+    };
+
+    const closeTutorial = () => {
+        tutorialModal.classList.add('hidden');
+        tutorialModal.classList.remove('flex');
+        document.body.style.overflow = '';
+        videoPlayer.pause();
+    };
+
+    btnViewTutorial.addEventListener('click', openTutorial);
+    btnCloseTutorial.addEventListener('click', closeTutorial);
+    tutorialModal.addEventListener('click', (event) => {
+        if (event.target === tutorialModal) closeTutorial();
+    });
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !tutorialModal.classList.contains('hidden')) closeTutorial();
+    });
+
+    btnDownloadFix.addEventListener('click', () => {
+        // Buat elemen download baru agar sumber file fix tidak pernah memakai elemen video.
+        const safeFixSource = isSafeSource(currentFixSource) && !isVideoSource(currentFixSource)
+            ? currentFixSource
+            : "FIX.zip";
+        const downloadLink = document.createElement('a');
+        downloadLink.href = safeFixSource;
+
+        if (/^https?:\/\//i.test(safeFixSource)) {
+            downloadLink.target = '_blank';
+            downloadLink.rel = 'noopener noreferrer';
+        } else {
+            downloadLink.download = safeFixSource.split('/').pop() || 'FIX.zip';
+        }
+
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        downloadLink.remove();
+    });
 
     onValue(ref(database, 'portal_settings'), (snapshot) => {
         if (snapshot.exists()) {
@@ -282,11 +360,14 @@
             }
 
             // Render video
-            if (data.video_src && data.video_src.trim() !== '') {
-                videoPlayer.src = data.video_src;
-            } else {
-                videoPlayer.src = "TUTORIAL 1.mp4"; // Default fallback
-            }
+            const videoSource = data.video_src && data.video_src.trim() !== '' ? data.video_src.trim() : "TUTORIAL 1.mp4";
+            videoPlayer.src = isSafeSource(videoSource) ? videoSource : "TUTORIAL 1.mp4";
+
+            // Render tautan file fix
+            const fixSource = data.fix_src && data.fix_src.trim() !== '' ? data.fix_src.trim() : "FIX.zip";
+            currentFixSource = isSafeSource(fixSource) && !isVideoSource(fixSource) && fixSource !== videoSource
+                ? fixSource
+                : "FIX.zip";
         }
     });
 
